@@ -1,0 +1,16 @@
+name: 'Download a Release Asset'
+description: 'Download a release asset to an existing release in your repository'
+author: 'nttd-zhangxibin'
+inputs:
+  release_tag:
+    description: 'The tag of release that saved the asset'
+    required: true
+  asset_name:
+    description: 'The name of the asset you want to download'
+    required: true
+outputs:
+  file_path:
+    description: 'The downloaded asset name'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
