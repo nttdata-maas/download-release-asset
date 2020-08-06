@@ -8,9 +8,12 @@ inputs:
   asset_name:
     description: 'The name of the asset you want to download'
     required: true
+  repository:
+    description: 'The full repository name eg: action/download-release-asset'
+    required: false
 outputs:
-  file_path:
-    description: 'The downloaded asset name'
+  file_name:
+    description: 'The downloaded asset file name'
 runs:
   using: 'node12'
   main: 'dist/index.js'

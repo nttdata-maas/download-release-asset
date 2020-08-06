@@ -8,10 +8,11 @@ This GitHub Action (written in JavaScript) wraps the [GitHub Release API](https:
 
 - `release_tag`: The tag of release that saved the asset
 - `asset_name` : The name of the asset you want to download
+- `repository` : The full repository name eg: action/download-release-asset
 
 ### Outputs
 
-- `file_path`: The downloaded asset file name
+- `file_name`: The downloaded asset file name
 
 ## License
 

@@ -11,8 +11,15 @@ async function run() {
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const tag = core.getInput('release_tag', { required: true });
     const assetName = core.getInput('asset_name', { required: true });
-    const owner = process.env.GITHUB_ACTOR;
-    const repo = process.env.GITHUB_REPOSITORY.replace(`${owner}/`, "");
+    const repository = core.getInput('repository', { required: false });
+
+    // get owner and repo
+    if(!repository){
+      repository = process.env.GITHUB_REPOSITORY;
+    }
+    const idx = repository.indexOf("/");
+    const owner = repository.substring(0, idx);
+    const repo = repository.substring(idx + 1);
 
     console.log(`owner:${owner}`)
     console.log(`repo:${repo}`)
@@ -42,7 +49,7 @@ async function run() {
     const path = await done;
 
     // Set the output variable for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
-    core.setOutput('file_path', path);
+    core.setOutput('file_name', path);
   } catch (error) {
     core.setFailed(error.message);
   }
