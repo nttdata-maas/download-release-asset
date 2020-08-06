@@ -1,12 +1,12 @@
 const core = require('@actions/core');
-const { GitHub } = require('@actions/github');
+const { getOctokit } = require('@actions/github');
 const request = require('request');
 const fs = require('fs');
 
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const github = new GitHub(process.env.GITHUB_TOKEN);
+    const octokit = getOctokit(token);
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const tag = core.getInput('release_tag', { required: true });
@@ -15,7 +15,9 @@ async function run() {
     const repo = process.env.GITHUB_REPOSITORY.replace(`${owner}/`, "");
 
     // find asset
-    const releaseResponse = await github.repos.getReleaseByTag({ owner, repo, tag });
+    const releaseResponse = tag == "latest" ?
+      await octokit.repos.getRelease({ owner, repo, release_id: "latest" })
+      : await octokit.repos.getReleaseByTag({ owner, repo, tag });
     const asset = releaseResponse.data.assets.find(e => e.name == assetName);
 
     // download 
