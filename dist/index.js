@@ -27207,7 +27207,7 @@ async function run() {
     let repository = core.getInput('repository', { required: false });
 
     // get owner and repo
-    if(!repository){
+    if (!repository) {
       repository = process.env.GITHUB_REPOSITORY;
     }
     const idx = repository.indexOf("/");
@@ -27219,6 +27219,12 @@ async function run() {
       await octokit.repos.getRelease({ owner, repo, release_id: "latest" })
       : await octokit.repos.getReleaseByTag({ owner, repo, tag });
     const asset = releaseResponse.data.assets.find(e => e.name == assetName);
+
+    // check not found
+    if (!asset) {
+      core.setFailed(`Cannot find the asset at the release tag: ${tag}.`);
+      return;
+    }
 
     // download 
     const file = fs.createWriteStream(assetName);

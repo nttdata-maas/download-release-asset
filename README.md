@@ -6,13 +6,25 @@ This GitHub Action (written in JavaScript) wraps the [GitHub Release API](https:
 
 ### Inputs
 
-- `release_tag`: The tag of release that saved the asset
-- `asset_name` : The name of the asset you want to download
-- `repository` : The full repository name eg: action/download-release-asset
+- `release_tag`: (required) The tag of release that saved the asset.set the "latest" to use the latest release version.
+- `asset_name` : (required) The name of the asset you want to download
+- `repository` : (option) The full repository name eg: action/download-release-asset
 
 ### Outputs
 
 - `file_name`: The downloaded asset file name
+
+### Example workflow
+
+```yaml
+    - name: download a asset
+      uses: nttdata-maas/download-release-asset@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_tag: ${{ github.event.inputs.version }}
+        asset_name: xxxx.zip
+```
 
 ## License
 
