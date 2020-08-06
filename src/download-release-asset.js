@@ -5,6 +5,10 @@ const fs = require('fs');
 
 async function run() {
   try {
+    if (process.env.GITHUB_TOKEN) {
+      console.log("token is empty!")
+    }
+    
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = getOctokit(process.env.GITHUB_TOKEN);
 
