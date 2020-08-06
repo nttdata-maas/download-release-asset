@@ -11,7 +11,7 @@ async function run() {
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const tag = core.getInput('release_tag', { required: true });
     const assetName = core.getInput('asset_name', { required: true });
-    const repository = core.getInput('repository', { required: false });
+    let repository = core.getInput('repository', { required: false });
 
     // get owner and repo
     if(!repository){
