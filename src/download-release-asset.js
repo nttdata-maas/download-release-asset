@@ -21,9 +21,6 @@ async function run() {
     const owner = repository.substring(0, idx);
     const repo = repository.substring(idx + 1);
 
-    console.log(`owner:${owner}`)
-    console.log(`repo:${repo}`)
-
     // find asset
     const releaseResponse = tag == "latest" ?
       await octokit.repos.getRelease({ owner, repo, release_id: "latest" })
@@ -47,6 +44,9 @@ async function run() {
       downloadRquest.on('error', reject);
     });
     const path = await done;
+
+    // output log message
+    console.log(`the asset [${path}] is downloaded.`);
 
     // Set the output variable for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     core.setOutput('file_name', path);
