@@ -27198,10 +27198,6 @@ const fs = __webpack_require__(747);
 
 async function run() {
   try {
-    if (process.env.GITHUB_TOKEN) {
-      console.log("token is empty!")
-    }
-    
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = getOctokit(process.env.GITHUB_TOKEN);
 
@@ -27210,6 +27206,9 @@ async function run() {
     const assetName = core.getInput('asset_name', { required: true });
     const owner = process.env.GITHUB_ACTOR;
     const repo = process.env.GITHUB_REPOSITORY.replace(`${owner}/`, "");
+
+    console.log(`owner:${owner}`)
+    console.log(`repo:${repo}`)
 
     // find asset
     const releaseResponse = tag == "latest" ?
