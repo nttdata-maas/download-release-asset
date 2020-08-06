@@ -6,7 +6,7 @@ const fs = require('fs');
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = getOctokit(token);
+    const octokit = getOctokit(process.env.GITHUB_TOKEN);
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const tag = core.getInput('release_tag', { required: true });
